@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Joe Belisle</Authors>
+    <Company></Company>
+    <Product />
+    <Description>A set of extension methods for Selenium Web Driver as well as standard Polly retry policies for use in developing service-based web automation.</Description>
+    <PackageProjectUrl>https://github.com/JBelisle/selenium-automation-extensions</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/JBelisle/selenium-automation-extensions</RepositoryUrl>
+    <PackageTags>Selenium, WebDriver, Polly</PackageTags>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Version>0.2.0</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Polly" Version="7.2.1" />
+    <PackageReference Include="Selenium.Support" Version="3.141.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+  </ItemGroup>
+
+</Project>
