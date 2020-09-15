@@ -11,7 +11,7 @@ namespace Selenium.Automation.Extensions.WebDriverExtensions
         /// <param name="elementSelector">The selector for the element to move into the viewport.</param>
         public static void ScrollIntoView(this IWebDriver driver, By elementSelector)
         {
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoViewIfNeeded(true);", driver.FindElement(elementSelector));
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView({ behavior: 'auto', block: 'center', inline: 'start' });", driver.FindElement(elementSelector));
         }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace Selenium.Automation.Extensions.WebDriverExtensions
         /// <param name="element">The element to move into the viewport.</param>
         public static void ScrollIntoView(this IWebDriver driver, IWebElement element)
         {
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoViewIfNeeded(true);", element);
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView({ behavior: 'auto', block: 'center', inline: 'start' });", element);
         }
 
         /// <summary>
@@ -34,12 +34,17 @@ namespace Selenium.Automation.Extensions.WebDriverExtensions
         {
             try
             {
+                ScrollIntoView(driver, elementSelector);
                 var element = driver.FindElement(elementSelector);
                 return element.Displayed;
             }
             catch (NoSuchElementException)
             {
                 return false;
+            }
+            catch (StaleElementReferenceException)
+            {
+                return ElementIsDisplayed(driver, elementSelector);
             }
         }
     }
