@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using Selenium.Automation.Extensions.Enums;
 using Selenium.Automation.Extensions.RetryHelpers;
+using Selenium.Automation.Extensions.WebElementExtensions;
 
 namespace Selenium.Automation.Extensions.WebDriverExtensions
 {
@@ -45,18 +46,7 @@ namespace Selenium.Automation.Extensions.WebDriverExtensions
 
             var initialConfirmationElement = driver.FindElement(confirmationElementSelector);
 
-            ClickAndConfirmByCondition(driver, clickElementSelector, () =>
-            {
-                try
-                {
-                    var shouldErrorWhenSuccessful = initialConfirmationElement.Text;
-                    return false;
-                }
-                catch (StaleElementReferenceException)
-                {
-                    return true;
-                }
-            }, clickType);
+            ClickAndConfirmByCondition(driver, clickElementSelector, () => initialConfirmationElement.IsStale(), clickType);
         }
 
         /// <summary>
