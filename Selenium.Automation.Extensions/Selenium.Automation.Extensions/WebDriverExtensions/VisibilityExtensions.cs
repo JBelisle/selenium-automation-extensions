@@ -35,8 +35,7 @@ namespace Selenium.Automation.Extensions.WebDriverExtensions
             try
             {
                 ScrollIntoView(driver, elementSelector);
-                var element = driver.FindElement(elementSelector);
-                return element.Displayed;
+                return driver.FindElement(elementSelector).Displayed;
             }
             catch (NoSuchElementException)
             {

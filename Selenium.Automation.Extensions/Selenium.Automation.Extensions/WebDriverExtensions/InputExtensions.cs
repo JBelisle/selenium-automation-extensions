@@ -52,6 +52,7 @@ namespace Selenium.Automation.Extensions.WebDriverExtensions
                     var selectElement = new SelectElement(inputField);
                     return selectElement.SelectedOption.Text;
                 case InputFieldType.Checkbox:
+                case InputFieldType.RadioButton:
                     return inputField.Selected ? "true" : "false";
                 default:
                     throw new ArgumentOutOfRangeException($"{inputFieldType} is not a valid input field type.");

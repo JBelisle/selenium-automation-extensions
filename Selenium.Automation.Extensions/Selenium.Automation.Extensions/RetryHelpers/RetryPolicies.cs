@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using OpenQA.Selenium;
 using Polly;
@@ -23,6 +24,20 @@ namespace Selenium.Automation.Extensions.RetryHelpers
         {
             return Policy
                 .HandleResult<List<string>>(x => x == null || !x.Any())
+                .Or<WebDriverException>()
+                .WaitAndRetry(retryCount, x => TimeSpan.FromSeconds(secondsBetweenAttempts));
+        }
+
+        /// <summary>
+        /// Returns a Polly RetryPolicy to use when retrieving a list of strings which is expected to not be null or empty and to not have empty strings.
+        /// </summary>
+        /// <param name="retryCount">The number of times to retry before giving up. Default = 10.</param>
+        /// <param name="secondsBetweenAttempts">The number of seconds to wait between retry attempts. Default = 0.5.</param>
+        /// <returns>A Polly RetryPolicy that will retry on the result of a list of string being null or empty, or any WebDriverException.</returns>
+        public static RetryPolicy<List<string>> GetTextListWithoutEmptyStrings(int retryCount = 10, double secondsBetweenAttempts = 0.5)
+        {
+            return Policy
+                .HandleResult<List<string>>(x => x == null || !x.Any() || x.Any(string.IsNullOrEmpty))
                 .Or<WebDriverException>()
                 .WaitAndRetry(retryCount, x => TimeSpan.FromSeconds(secondsBetweenAttempts));
         }
